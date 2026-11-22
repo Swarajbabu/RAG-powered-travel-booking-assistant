@@ -42,7 +42,7 @@ const router_host = require("./routes/host.js");
 const router_pages = require("./routes/pages.js");
 const router_roomShares = require("./routes/roomShare.js");
 const router_itineraries = require("./routes/itinerary.js");
-const router_chatbot = require("./routes/chatbot.js");
+const router_chat = require("./routes/chat.js");
 
 const secret = process.env.SECRET;
 
@@ -148,7 +148,7 @@ app.use("/", router_bookings);
 app.use("/host", router_host);
 app.use("/", router_roomShares);
 app.use("/", router_itineraries);
-app.use("/", router_chatbot);
+app.use("/api/chat", router_chat);
 app.use("/", router_pages);
 app.use("/", router_user);
 

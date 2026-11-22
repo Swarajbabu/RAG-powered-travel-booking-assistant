@@ -582,14 +582,10 @@ body {
     transform: scale(1.12);
 }
 
-/* Adjust mobile body padding & chatbot position so bottom nav never overlaps */
+/* Keep content clear of the mobile bottom navigation. */
 @media (max-width: 1199.98px) {
     body {
         padding-bottom: 74px !important;
-    }
-    .wl-chat-fab {
-        bottom: 76px !important;
-        right: 16px !important;
     }
 }
 
@@ -610,8 +606,8 @@ body {
 }
 
 
-/* Wanderlust Floating Travel Chatbot */
-.wl-chat-fab {
+/* Floating RAG travel assistant */
+.travel-guide-button {
     position: fixed;
     right: 20px;
     bottom: 20px;
@@ -628,323 +624,231 @@ body {
     font-weight: 500;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
     cursor: pointer;
-    transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.wl-chat-fab:hover {
+.travel-guide-button:hover {
     background: #292524;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
 }
 
-.wl-chat-panel {
+.travel-guide-panel {
     position: fixed;
-    right: 20px;
-    bottom: 80px;
-    z-index: 1065;
-    width: min(390px, calc(100vw - 24px));
-    height: min(560px, calc(100vh - 110px));
+    right: 24px;
+    bottom: 82px;
+    z-index: 1060;
+    width: min(420px, calc(100vw - 48px));
+    height: min(620px, calc(100vh - 112px));
+    max-height: min(620px, calc(100vh - 100px));
+    display: grid;
+    grid-template-rows: auto minmax(180px, 1fr) auto auto;
     background: #ffffff;
     border: 1px solid #e7e7eb;
-    border-radius: 1.15rem;
-    box-shadow: 0 18px 46px rgba(18, 22, 33, 0.18);
-    display: flex;
-    flex-direction: column;
+    border-radius: 8px;
+    box-shadow: 0 12px 36px rgba(28, 25, 23, 0.18);
     overflow: hidden;
 }
 
-.wl-chat-header {
+.travel-guide-panel[hidden] {
+    display: none;
+}
+
+.travel-guide-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5rem;
-    padding: 0.85rem 1rem;
-    background: linear-gradient(135deg, #222222 0%, #34343c 100%);
-    color: #ffffff;
-    flex-shrink: 0;
+    gap: 1rem;
+    padding: 0.8rem 0.9rem;
+    border-bottom: 1px solid #ececec;
 }
 
-.wl-chat-title-wrap {
+.travel-guide-header strong,
+.travel-guide-header small {
+    display: block;
+}
+
+.travel-guide-header small {
+    margin-top: 0.15rem;
+    color: #78716c;
+}
+
+.travel-guide-actions {
     display: flex;
-    align-items: center;
-    gap: 0.65rem;
-    min-width: 0;
-}
-
-.wl-chat-avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: #fe424d;
-    color: #ffffff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.95rem;
-    flex-shrink: 0;
-}
-
-.wl-chat-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #ffffff;
-}
-
-.wl-chat-subtitle-row {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-}
-
-.wl-chat-subtitle {
-    font-size: 0.72rem;
-    color: rgba(255, 255, 255, 0.78);
-}
-
-.wl-chat-loc-pill {
-    font-size: 0.68rem;
-    font-weight: 600;
-    background: rgba(254, 66, 77, 0.25);
-    color: #ffd3d6;
-    border: 1px solid rgba(254, 66, 77, 0.45);
-    padding: 0.08rem 0.45rem;
-    border-radius: 999px;
-}
-
-.wl-chat-header-actions {
-    display: flex;
-    align-items: center;
     gap: 0.25rem;
-    flex-shrink: 0;
 }
 
-.wl-chat-icon-btn {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(255, 255, 255, 0.12);
-    color: #ffffff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.82rem;
-    cursor: pointer;
-    transition: background-color 0.18s ease;
+.travel-guide-actions button,
+.travel-guide-form button {
+    width: 36px;
+    height: 36px;
+    display: inline-grid;
+    place-items: center;
+    border: 0;
+    background: transparent;
+    color: #57534e;
 }
 
-.wl-chat-icon-btn:hover,
-.wl-chat-icon-btn.active {
-    background: #fe424d;
+.travel-guide-actions button:hover,
+.travel-guide-actions button:focus-visible,
+.travel-guide-form button:hover,
+.travel-guide-form button:focus-visible {
+    background: #f5f5f4;
+    color: #1c1917;
 }
 
-.wl-chat-suggestions-drawer {
-    padding: 0.65rem 0.85rem;
-    background: #fafafa;
-    border-bottom: 1px solid #ececef;
-    flex-shrink: 0;
-    max-height: 145px;
+.travel-guide-messages {
+    min-height: 180px;
     overflow-y: auto;
+    padding: 0.9rem;
 }
 
-.wl-chat-suggestions-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.74rem;
-    font-weight: 700;
-    color: #444;
-    margin-bottom: 0.45rem;
+.travel-guide-message {
+    max-width: 88%;
+    margin-bottom: 0.65rem;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid #ececec;
+    border-radius: 8px;
 }
 
-.wl-chat-chips {
+.travel-guide-message strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.76rem;
+    color: #57534e;
+}
+
+.travel-guide-message p {
+    margin: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.travel-guide-message-user {
+    margin-left: auto;
+    background: #292524;
+    border-color: #292524;
+    color: #ffffff;
+}
+
+.travel-guide-message-user strong {
+    color: #e7e5e4;
+}
+
+.travel-guide-loading p::after {
+    content: "...";
+}
+
+.travel-guide-sources {
+    max-width: 88%;
+    margin: -0.25rem 0 0.65rem;
+    color: #78716c;
+    font-size: 0.72rem;
+}
+
+.travel-guide-sources summary {
+    width: fit-content;
+    cursor: pointer;
+}
+
+.travel-guide-source-list {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
+    margin-top: 0.35rem;
 }
 
-.wl-chat-chip {
-    border: 1px solid #e2e2e8;
-    background: #ffffff;
-    color: #222222;
-    font-size: 0.76rem;
-    line-height: 1.25;
-    padding: 0.32rem 0.62rem;
+.travel-guide-source {
+    max-width: 100%;
+    padding: 0.22rem 0.45rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: 1px solid #e7e5e4;
     border-radius: 999px;
-    text-align: left;
-    cursor: pointer;
-    transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+    background: #fafaf9;
 }
 
-.wl-chat-chip:hover {
-    border-color: #fe424d;
-    background: #fff5f6;
-    color: #c82333;
+.travel-guide-message-content p {
+    margin: 0 0 0.45rem;
 }
 
-.wl-chat-chip-related {
-    background: #fff8f8;
-    border-color: #f8cfd2;
-}
-
-.wl-chat-messages {
-    flex: 1 1 auto;
-    overflow-y: auto;
-    padding: 0.85rem;
-    background: #f6f7fb;
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-}
-
-.wl-chat-msg {
-    display: flex;
-    flex-direction: column;
-    max-width: 90%;
-}
-
-.wl-chat-msg-user {
-    align-self: flex-end;
-    align-items: flex-end;
-}
-
-.wl-chat-msg-bot {
-    align-self: flex-start;
-    align-items: flex-start;
-}
-
-.wl-chat-bubble {
-    padding: 0.62rem 0.85rem;
-    border-radius: 0.95rem;
-    font-size: 0.86rem;
-    line-height: 1.45;
-    word-break: break-word;
-}
-
-.wl-chat-msg-user .wl-chat-bubble {
-    background: #fe424d;
-    color: #ffffff;
-    border-bottom-right-radius: 0.25rem;
-}
-
-.wl-chat-msg-bot .wl-chat-bubble {
-    background: #ffffff;
-    color: #222222;
-    border: 1px solid #e8e8ee;
-    border-bottom-left-radius: 0.25rem;
-}
-
-.wl-chat-p {
-    margin: 0 0 0.35rem 0;
-}
-
-.wl-chat-p:last-child {
+.travel-guide-message-content p:last-child {
     margin-bottom: 0;
 }
 
-.wl-chat-list {
-    margin: 0.25rem 0 0.35rem 1.05rem;
-    padding: 0;
+.travel-guide-answer-list {
+    margin: 0.35rem 0 0.15rem;
+    padding-left: 1.15rem;
 }
 
-.wl-chat-list:last-child {
-    margin-bottom: 0;
-}
-
-.wl-chat-list li {
-    margin-bottom: 0.22rem;
-}
-
-.wl-chat-related {
-    margin-top: 0.45rem;
-}
-
-.wl-chat-related-label {
-    font-size: 0.71rem;
-    font-weight: 700;
-    color: #666;
+.travel-guide-answer-list li {
     margin-bottom: 0.28rem;
 }
 
-.wl-chat-typing {
-    font-style: italic;
-    color: #666 !important;
+.travel-guide-prompts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem;
+    padding: 0 0.65rem 0.55rem;
 }
 
-.wl-chat-input-bar {
-    display: flex;
+.travel-guide-prompts button {
+    min-width: 0;
+    min-height: 38px;
+    display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    padding: 0.65rem 0.75rem;
-    background: #ffffff;
-    border-top: 1px solid #e9e9ef;
-    flex-shrink: 0;
+    gap: 0.35rem;
+    border: 1px solid #e7e5e4;
+    border-radius: 999px;
+    background: #fafaf9;
+    color: #57534e;
+    padding: 0.38rem 0.65rem;
+    font-size: 0.75rem;
 }
 
-.wl-chat-input {
-    border-radius: 999px !important;
-    font-size: 0.87rem !important;
-    padding: 0.48rem 0.9rem !important;
-    border: 1px solid #dcdce2 !important;
+.travel-guide-prompts button:hover,
+.travel-guide-prompts button:focus-visible {
+    border-color: #fe424d;
+    color: #b91c1c;
 }
 
-.wl-chat-input:focus {
-    border-color: #fe424d !important;
-    box-shadow: 0 0 0 0.15rem rgba(254, 66, 77, 0.16) !important;
-}
-
-.wl-chat-send-btn {
-    width: 38px;
-    height: 38px;
-    border-radius: 50% !important;
-    background: #fe424d !important;
-    color: #ffffff !important;
-    border: none !important;
-    display: inline-flex !important;
+.travel-guide-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 36px;
+    gap: 0.5rem;
     align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    padding: 0.65rem;
+    border-top: 1px solid #ececec;
 }
 
-.wl-chat-send-btn:hover {
-    background: #e33640 !important;
+.travel-guide-form input {
+    min-width: 0;
+    height: 36px;
+    border: 1px solid #d6d3d1;
+    border-radius: 6px;
+    padding: 0 0.65rem;
 }
 
-@media (max-width: 575.98px) {
-    .wl-chat-fab {
-        right: 12px;
-        bottom: 12px;
-        padding: 0.65rem 0.95rem;
+.travel-guide-form input:focus {
+    outline: 2px solid rgba(254, 66, 77, 0.2);
+    border-color: #fe424d;
+}
+
+.travel-guide-form button {
+    background: #fe424d;
+    cursor: pointer;
+    color: #ffffff;
+    border-radius: 6px;
+}
+
+.travel-guide-form button:disabled {
+    opacity: 0.55;
+}
+
+@media (max-width: 1199.98px) {
+    .travel-guide-button {
+        right: 16px;
+        bottom: 76px;
     }
-    .wl-chat-panel {
-        right: 12px;
-        bottom: 68px;
-        width: calc(100vw - 24px);
-        height: min(520px, calc(100vh - 96px));
-    }
-}
-
-@keyframes wlLineFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(4px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.wl-chat-line-enter {
-    animation: wlLineFadeIn 0.22s ease forwards;
-}
-
-.wl-chat-start-suggestions {
-    background: #ffffff;
-    border: 1px solid #e8e8ee;
-    border-radius: 0.9rem;
-    padding: 0.65rem 0.75rem;
-    margin-top: 0.15rem;
 }
 
 /* Itinerary Day Selector Pills */
@@ -996,21 +900,51 @@ body {
 }
 
 @media (max-width: 575.98px) {
-    .wl-chat-fab {
+    .travel-guide-button {
         right: 14px;
-        bottom: 14px;
+        bottom: 76px;
         padding: 0.6rem 0.95rem;
         font-size: 0.85rem;
     }
-    .wl-chat-panel {
-        right: 10px;
+
+    .travel-guide-panel {
         left: 10px;
-        width: auto !important;
-        max-width: calc(100vw - 20px) !important;
-        bottom: 64px;
-        height: min(540px, calc(100vh - 80px));
-        border-radius: 1rem;
+        right: 10px;
+        bottom: 132px;
+        width: auto;
+        height: min(520px, calc(100vh - 168px));
+        max-height: calc(100vh - 168px);
+        grid-template-rows: auto minmax(150px, 1fr) auto auto;
     }
+
+    .travel-guide-header {
+        padding: 0.7rem 0.75rem;
+    }
+
+    .travel-guide-messages {
+        min-height: 150px;
+        padding: 0.75rem;
+    }
+
+    .travel-guide-message {
+        max-width: 92%;
+    }
+
+    .travel-guide-prompts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.35rem;
+        padding: 0 0.6rem 0.45rem;
+    }
+
+    .travel-guide-prompts button {
+        min-height: 36px;
+        font-size: 0.71rem;
+    }
+
+    .travel-guide-form {
+        padding: 0.55rem 0.6rem;
+    }
+
     .card-img-top {
         min-height: 18rem;
         height: 18rem !important;

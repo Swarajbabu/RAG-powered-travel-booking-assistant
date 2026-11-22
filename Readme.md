@@ -94,7 +94,7 @@ A production-grade, full-stack vacation rental & solo travel companion matching 
 ### 🤖 AI Travel Planner & Chatbot
 - **Gemini AI Multi-Day Itinerary Engine:** Generates comprehensive daily schedules (Day 1..Day 14) with activities, estimated costs, recommended homestays, and packing advice.
 - **Interactive Route Map:** Plotted on Mapbox GL with connected coordinates showing exact sequence of daily stops.
-- **24/7 Contextual Travel Chatbot:** Floating assistant on all pages (`/api/chat`) providing destination tips, weather guidance, and instant stay recommendations based on current location and preferences.
+- **RAG Chatbot Implementation:** The floating UI is present, and MongoDB Atlas Vector Search is configured with `wanderlust.rag_documents` and `rag_vector_index` (384 dimensions, cosine similarity). PDF ingestion and Python FastAPI retrieval are currently being implemented.
 
 ### 🏡 Property Listings & Infinite Scroll
 - **Infinite Scroll Lazy Loading:** Responsive grid that asynchronously fetches the next batch of properties (`/listings?format=json&page=...`) using `IntersectionObserver`, with fallback "Load More Stays" button and spinner.
@@ -323,8 +323,7 @@ Review
 | `GET` | `/itineraries/new` | Interactive form to generate customized multi-day travel plans | `isLoggedIn` |
 | `POST` | `/itineraries` | Trigger Google Gemini AI generation and Mapbox coordinate plotting | `isLoggedIn` |
 | `GET` | `/itineraries/:id` | View day-by-day plan with interactive route map | `isLoggedIn` |
-| `POST` | `/api/chat` | AI chatbot conversation endpoint for travel guidance | Public |
-| `GET` | `/api/chat/suggestions` | Contextual prompt chips based on active location and stay | Public |
+| `POST` | `/api/chat` | Planned RAG chatbot endpoint for grounded travel guidance | Public |
 
 ### Bookings & Checkout (`/bookings`)
 | Method | Route | Description | Access Control |
@@ -354,7 +353,7 @@ Major Project Using HCJNE Stacks/
 │
 ├── controllers/
 │   ├── booking.js              # Reservation logic, Razorpay checkout & refund calculation
-│   ├── chatbot.js              # Gemini AI chat endpoint and contextual suggestion chips
+│   ├── chat.js                 # Planned RAG chat endpoint and Python service forwarding
 │   ├── host.js                 # Host dashboard analytics, earnings & occupancy metrics
 │   ├── itinerary.js            # Gemini AI multi-day planner & Mapbox route generation
 │   ├── listing.js              # Listing CRUD, text search, JSON API & infinite scroll
@@ -376,13 +375,13 @@ Major Project Using HCJNE Stacks/
 │   │   └── style.css           # Global Wanderlust themes, mobile breakpoints & navbar
 │   └── js/
 │       ├── cascadingLocationSelect.js # Shared State -> City -> Stay dropdown controller
-│       ├── chatbot.js          # Client floating AI travel assistant UI
+│       ├── travelGuideButton.js # Floating RAG travel assistant UI (placeholder until RAG integration)
 │       ├── map.js              # Mapbox GL listing & cluster map controller
 │       └── script.js           # Form validations & UI utilities
 │
 ├── routes/
 │   ├── booking.js
-│   ├── chatbot.js
+│   ├── chat.js                 # Planned RAG Node route
 │   ├── host.js
 │   ├── itinerary.js
 │   ├── listing.js
@@ -397,7 +396,7 @@ Major Project Using HCJNE Stacks/
 ├── tests/
 │   ├── auth.test.js            # Auth, OTP, Google OAuth & password reset tests
 │   ├── bookings.test.js        # Date overlap, server-side pricing & payment verification
-│   ├── chatbot.test.js         # Chatbot suggestion API & message handling tests
+│   ├── chat.test.js            # Planned RAG API and security tests
 │   ├── itineraries.test.js     # AI itinerary validation & route saving tests
 │   ├── listings.test.js        # Listing CRUD, authorization & lazy load API tests
 │   ├── reviews.test.js         # Verified stay review gating tests
@@ -475,6 +474,9 @@ cp .env.example .env
 | `GOOGLE_CALLBACK_URL` | ✅ | OAuth redirect URL (e.g. `http://localhost:8081/auth/google/callback`) |
 | `GEMINI_API_KEY` | Optional | Google Gemini AI API key for AI Planner & Chatbot |
 | `GEMINI_MODEL` | Optional | Gemini model identifier (default: `gemini-flash-lite-latest`) |
+| `RAG_SERVICE_URL` | Planned | Internal URL of the Python FastAPI RAG service |
+| `RAG_SERVICE_SECRET` | Planned | Shared secret between Node.js and the RAG service |
+| `RAG_CHAT_ENABLED` | Planned | Enables or disables the RAG chatbot endpoint |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` | Optional | SMTP mail credentials (falls back to Winston logger stub if unset) |
 
 ---
@@ -508,7 +510,7 @@ npm test
 - **`tests/listings.test.js`**: CRUD operations, owner-only authorization, text search, and JSON pagination API (`/listings?format=json`).
 - **`tests/bookings.test.js`**: Double-booking date overlap rejection, server-side tax pricing (18% GST), and HMAC-SHA256 signature verification.
 - **`tests/itineraries.test.js`**: Gemini AI prompt handling, structured day-by-day plan storage, and route coordinate saving.
-- **`tests/chatbot.test.js`**: Chatbot query response validation and contextual suggestion chips.
+- **RAG chatbot tests**: Planned coverage for grounded answers, refusals, service authentication, CSRF, timeouts, and rate limiting.
 - **`tests/reviews.test.js`**: Verified-stay review gating (preventing non-guests or future checkouts from posting reviews).
 - **`tests/auth.test.js`**: Local signup, password hashing, Google OAuth, 6-digit OTP verification, and rate limiting.
 

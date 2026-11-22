@@ -1,0 +1,73 @@
+<button
+  type="button"
+  id="travel-guide-button"
+  class="travel-guide-button"
+  aria-label="Open travel assistant"
+  aria-controls="travel-guide-panel"
+  aria-expanded="false"
+>
+  <i class="fa-regular fa-compass" aria-hidden="true"></i>
+  <span>Travel guide</span>
+</button>
+
+<section
+  id="travel-guide-panel"
+  class="travel-guide-panel"
+  role="dialog"
+  aria-label="Wanderlust travel assistant"
+  aria-live="polite"
+  hidden
+>
+  <header class="travel-guide-header">
+    <div>
+      <strong>Wanderlust guide</strong>
+      <small>Answers from project documents</small>
+    </div>
+    <div class="travel-guide-actions">
+      <button type="button" id="travel-guide-clear" aria-label="Clear conversation" title="Clear conversation">
+        <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+      </button>
+      <button type="button" id="travel-guide-close" aria-label="Close assistant" title="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+  </header>
+
+  <div id="travel-guide-messages" class="travel-guide-messages" role="log" aria-live="polite"></div>
+
+  <div class="travel-guide-prompts" aria-label="Suggested questions">
+    <button type="button" data-travel-guide-prompt="How does room sharing work?">
+      <i class="fa-solid fa-user-group" aria-hidden="true"></i>
+      Room sharing
+    </button>
+    <button type="button" data-travel-guide-prompt="What is the cancellation and refund policy?">
+      <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+      Refund policy
+    </button>
+    <button type="button" data-travel-guide-prompt="How do I create a listing as a host?">
+      <i class="fa-solid fa-house-circle-check" aria-hidden="true"></i>
+      Host a stay
+    </button>
+    <button type="button" data-travel-guide-prompt="What are the supported payment methods?">
+      <i class="fa-solid fa-wallet" aria-hidden="true"></i>
+      Payments
+    </button>
+  </div>
+
+  <form id="travel-guide-form" class="travel-guide-form">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <label class="visually-hidden" for="travel-guide-input">Ask a travel guide question</label>
+    <input
+      id="travel-guide-input"
+      name="message"
+      type="text"
+      maxlength="2000"
+      autocomplete="off"
+      placeholder="Ask about Wanderlust..."
+      aria-describedby="travel-guide-shortcut"
+    >
+    <button id="travel-guide-send" type="submit" aria-label="Send message">
+      <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+    </button>
+  </form>
+</section>

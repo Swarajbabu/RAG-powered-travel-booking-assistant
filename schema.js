@@ -99,24 +99,3 @@ module.exports.itineraryRequestSchema = Joi.object({
         listingId: Joi.string().allow("", null).optional()
     }).required()
 });
-
-module.exports.chatbotMessageSchema = Joi.object({
-    message: Joi.string().trim().min(1).max(1000).required().messages({
-        "string.empty": "Please enter a question to ask the Wanderlust Guide.",
-        "any.required": "Please enter a question to ask the Wanderlust Guide."
-    }),
-    history: Joi.array().max(12).items(
-        Joi.object({
-            role: Joi.string().valid("user", "model").required(),
-            text: Joi.string().trim().min(1).max(1500).required()
-        })
-    ).optional(),
-    context: Joi.object({
-        location: Joi.string().allow("", null).max(150).optional(),
-        country: Joi.string().allow("", null).max(100).optional(),
-        title: Joi.string().allow("", null).max(200).optional(),
-        category: Joi.string().allow("", null).max(80).optional(),
-        price: Joi.alternatives().try(Joi.number(), Joi.string().allow("", null)).optional(),
-        page: Joi.string().allow("", null).max(120).optional()
-    }).optional()
-});

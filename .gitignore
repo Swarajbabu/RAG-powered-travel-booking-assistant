@@ -11,3 +11,10 @@ coverage/
 dist/
 build/
 *.log
+.venv/
+.npm-cache/
+.pytest_cache/
+rag_service/.venv/
+rag_service/**/.env
+rag_service/__pycache__/
+rag_service/**/__pycache__/
