@@ -1,10 +1,10 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
-const Booking = require("../modals/booking");
-const Listing = require("../modals/listing");
-const Review = require("../modals/review");
-const User = require("../modals/user");
+const Booking = require("../models/booking");
+const Listing = require("../models/listing");
+const Review = require("../models/review");
+const User = require("../models/user");
 
 let mongoServer;
 let app;

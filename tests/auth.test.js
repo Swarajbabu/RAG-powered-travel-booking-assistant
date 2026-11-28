@@ -1,7 +1,7 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
-const User = require("../modals/user");
+const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
 jest.mock("passport-google-oauth20", () => {

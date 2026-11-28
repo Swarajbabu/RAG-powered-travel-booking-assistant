@@ -4,10 +4,10 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const { MongoMemoryServer } = require("mongodb-memory-server");
-const Listing = require("../modals/listing");
-const User = require("../modals/user");
-const Booking = require("../modals/booking");
-const RoomSharePool = require("../modals/roomShare");
+const Listing = require("../models/listing");
+const User = require("../models/user");
+const Booking = require("../models/booking");
+const RoomSharePool = require("../models/roomShare");
 const { scorePoolCompatibility } = require("../services/companionMatcher");
 const { buildLocationTree, findInitialSelection } = require("../utils/locationHierarchy");
 

@@ -1,7 +1,7 @@
-const Listing = require("./modals/listing");
-const Review = require("./modals/review");
-const Booking = require("./modals/booking");
-const RoomSharePool = require("./modals/roomShare");
+const Listing = require("./models/listing");
+const Review = require("./models/review");
+const Booking = require("./models/booking");
+const RoomSharePool = require("./models/roomShare");
 const { ListingSchema, reviewSchema, bookingSchema, editBookingDatesSchema, cancelBookingSchema, roomShareSchema, roomShareJoinSchema, roomShareSelectStaySchema, itineraryRequestSchema } = require("./schema.js");
 const ExpressError = require("./utility/ExpressError.js");
 

@@ -361,7 +361,7 @@ Major Project Using HCJNE Stacks/
 │   ├── roomShare.js            # Solo room sharing matching, pool chat & split payments
 │   └── user.js                 # Local signup/login, Google OAuth, OTP verification & wishlist
 │
-├── modals/                     # Mongoose Schemas & Models
+├── models/                     # Mongoose Schemas & Models
 │   ├── booking.js
 │   ├── itinerary.js
 │   ├── listing.js

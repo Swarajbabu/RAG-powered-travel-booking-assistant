@@ -1,7 +1,7 @@
 const crypto = require("crypto");
-const Listing = require("../modals/listing");
-const Booking = require("../modals/booking");
-const RoomSharePool = require("../modals/roomShare");
+const Listing = require("../models/listing");
+const Booking = require("../models/booking");
+const RoomSharePool = require("../models/roomShare");
 const ExpressError = require("../utility/ExpressError");
 const logger = require("../config/logger");
 const { getRazorpayInstance, activeBookingFilter, calculateBookingPricing } = require("../utility/bookingHelpers");

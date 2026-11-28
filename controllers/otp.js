@@ -1,4 +1,4 @@
-const User = require("../modals/user");
+const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const emailTransporter = require("../config/email");
 const logger = require("../config/logger");

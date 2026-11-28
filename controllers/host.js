@@ -1,5 +1,5 @@
-const Listing = require("../modals/listing");
-const Booking = require("../modals/booking");
+const Listing = require("../models/listing");
+const Booking = require("../models/booking");
 
 module.exports.renderDashboard = async (req, res) => {
     const listings = await Listing.find({ owner: req.user._id }).sort({ _id: -1 });

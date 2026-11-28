@@ -1,10 +1,10 @@
-const Listing = require("../modals/listing");
+const Listing = require("../models/listing");
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 const { cloudinary } = require("../cloudconfig.js");
-const Booking = require("../modals/booking");
-const RoomSharePool = require("../modals/roomShare");
+const Booking = require("../models/booking");
+const RoomSharePool = require("../models/roomShare");
 const logger = require("../config/logger");
 
 const DEFAULT_COORDINATES = [78.4867, 17.3850];

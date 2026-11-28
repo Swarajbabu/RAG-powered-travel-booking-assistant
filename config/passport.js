@@ -1,6 +1,6 @@
 const LocalStrategy = require("passport-local");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const User = require("../modals/user");
+const User = require("../models/user");
 
 function configurePassport(passport) {
     passport.use(new LocalStrategy(User.authenticate()));

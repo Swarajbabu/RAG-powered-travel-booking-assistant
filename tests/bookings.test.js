@@ -1,9 +1,9 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
-const Booking = require("../modals/booking");
-const Listing = require("../modals/listing");
-const User = require("../modals/user");
+const Booking = require("../models/booking");
+const Listing = require("../models/listing");
+const User = require("../models/user");
 const crypto = require("crypto");
 
 jest.mock("razorpay", () => {

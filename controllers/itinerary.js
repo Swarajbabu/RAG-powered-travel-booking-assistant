@@ -1,6 +1,6 @@
-const Listing = require("../modals/listing");
-const Booking = require("../modals/booking");
-const TripItinerary = require("../modals/itinerary");
+const Listing = require("../models/listing");
+const Booking = require("../models/booking");
+const TripItinerary = require("../models/itinerary");
 const ExpressError = require("../utility/ExpressError");
 const { generatePersonalizedItinerary } = require("../services/itineraryService");
 

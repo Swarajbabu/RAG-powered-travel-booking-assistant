@@ -1,6 +1,6 @@
-const Listing = require("../modals/listing");
-const Review = require("../modals/review");
-const Booking = require("../modals/booking");
+const Listing = require("../models/listing");
+const Review = require("../models/review");
+const Booking = require("../models/booking");
 const ExpressError = require("../utility/ExpressError");
 
 module.exports.createReview = async (req, res) => {

@@ -1,10 +1,10 @@
 require("dotenv").config({ path: require("path").resolve(__dirname, "../.env") });
 const mongoose = require("mongoose");
 const initData = require("./data");
-const Listing = require("../modals/listing");
-const User = require("../modals/user");
-const Review = require("../modals/review");
-const Booking = require("../modals/booking");
+const Listing = require("../models/listing");
+const User = require("../models/user");
+const Review = require("../models/review");
+const Booking = require("../models/booking");
 const logger = require("../config/logger");
 
 const mongodb_url = process.env.MONGODB_ATLAS;
